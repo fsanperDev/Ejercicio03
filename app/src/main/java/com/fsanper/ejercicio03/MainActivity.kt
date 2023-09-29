@@ -1,5 +1,6 @@
 package com.fsanper.ejercicio03
 
+import android.graphics.ColorSpace
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.fsanper.ejercicio03.ui.theme.Ejercicio03Theme
+import kotlin.random.Random
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,17 +61,68 @@ fun GreetingPreview() {
     }
 }
 
+fun RandomColor(): Color {
+    val red = Random.nextInt(256)
+    val green = Random.nextInt(256)
+    val blue = Random.nextInt(256)
+    return Color(red, green, blue)
+}
+
 @Composable
 fun ConstraintExample() {
-    ConstraintLayout(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp)
+    ) {
 
-        val (boxRed, boxBlue, boxYellow, boxGreen, boxMargenta) = createRefs()
+        val (boxLeftTop, boxCenterTop, boxRightTop,
+            boxLeftCenter, boxCenter, boxRightCenter,
+            boxLeftBottom, boxCenterBottom,boxRightBottom) = createRefs()
 
         Box(
             modifier = Modifier
                 .size(125.dp)
-                .background(Color.Red)
-                .constrainAs(boxRed){
+                .background(RandomColor())
+                .constrainAs(boxLeftTop) {
+                    end.linkTo(boxCenter.start)
+                    bottom.linkTo(boxCenter.top)
+                }
+        )
+        Box(
+            modifier = Modifier
+                .size(125.dp)
+                .background(RandomColor())
+                .constrainAs(boxCenterTop) {
+                    end.linkTo(boxRightTop.start)
+                    start.linkTo(boxLeftTop.end)
+                    bottom.linkTo(boxCenter.top)
+                }
+        )
+        Box(
+            modifier = Modifier
+                .size(125.dp)
+                .background(RandomColor())
+                .constrainAs(boxRightTop) {
+                    start.linkTo(boxCenter.end)
+                    bottom.linkTo(boxCenter.top)
+                }
+        )
+        //-----------------------------------------------//
+        Box(
+            modifier = Modifier
+                .size(125.dp)
+                .background(RandomColor())
+                .constrainAs(boxLeftCenter) {
+                    end.linkTo(boxCenter.start)
+                    top.linkTo(boxCenter.top)
+                }
+        )
+        Box(
+            modifier = Modifier
+                .size(125.dp)
+                .background(RandomColor())
+                .constrainAs(boxCenter) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
@@ -78,39 +132,40 @@ fun ConstraintExample() {
         Box(
             modifier = Modifier
                 .size(125.dp)
-                .background(Color.Yellow)
-                .constrainAs(boxYellow){
-                    end.linkTo(boxRed.start)
-                    bottom.linkTo(boxRed.top)
+                .background(RandomColor())
+                .constrainAs(boxRightCenter) {
+                    start.linkTo(boxCenter.end)
+                    top.linkTo(boxCenter.top)
+                }
+        )
+        //-----------------------------------------------//
+        Box(
+            modifier = Modifier
+                .size(125.dp)
+                .background(RandomColor())
+                .constrainAs(boxLeftBottom) {
+                    end.linkTo(boxCenter.start)
+                    top.linkTo(boxCenter.bottom)
                 }
         )
         Box(
             modifier = Modifier
                 .size(125.dp)
-                .background(Color.Blue)
-                .constrainAs(boxBlue){
-                    start.linkTo(boxRed.end)
-                    bottom.linkTo(boxRed.top)
+                .background(RandomColor())
+                .constrainAs(boxCenterBottom) {
+                    end.linkTo(boxRightBottom.start)
+                    start.linkTo(boxLeftBottom.end)
+                    top.linkTo(boxCenter.bottom)
                 }
         )
         Box(
             modifier = Modifier
                 .size(125.dp)
-                .background(Color.Green)
-                .constrainAs(boxGreen){
-                    start.linkTo(boxRed.end)
-                    top.linkTo(boxRed.bottom)
+                .background(RandomColor())
+                .constrainAs(boxRightBottom) {
+                    start.linkTo(boxCenter.end)
+                    top.linkTo(boxCenter.bottom)
                 }
         )
-        Box(
-            modifier = Modifier
-                .size(125.dp)
-                .background(Color.Magenta)
-                .constrainAs(boxMargenta){
-                    end.linkTo(boxRed.start)
-                    top.linkTo(boxRed.bottom)
-                }
-        )
-
     }
 }
