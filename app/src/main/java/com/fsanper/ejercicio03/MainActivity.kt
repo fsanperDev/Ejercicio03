@@ -80,6 +80,7 @@ fun ConstraintExample() {
             boxLeftCenter, boxCenter, boxRightCenter,
             boxLeftBottom, boxCenterBottom,boxRightBottom) = createRefs()
 
+        //-----------------------------------------------//
         Box(
             modifier = Modifier
                 .size(125.dp)
@@ -167,5 +168,6 @@ fun ConstraintExample() {
                     top.linkTo(boxCenter.bottom)
                 }
         )
+        //-----------------------------------------------//
     }
 }
