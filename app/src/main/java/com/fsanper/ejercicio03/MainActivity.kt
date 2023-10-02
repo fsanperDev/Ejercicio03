@@ -100,7 +100,6 @@ fun ConstraintChainExample() {
                 }
         )
 
-
         createHorizontalChain(boxRed, boxBlue, boxYellow, chainStyle = ChainStyle.Spread)
     }
 }
